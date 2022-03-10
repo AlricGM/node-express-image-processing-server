@@ -17,7 +17,7 @@ const imageProcessor = function (filename) {
   let resizeWorkerFinished = false
   let monochromeWorkerFinished = false
   
-  return new Promise((resolve, reject) => {
+  let output = new Promise((resolve, reject) => {
 
     if (isMainThread) {
       try {
@@ -75,10 +75,12 @@ const imageProcessor = function (filename) {
         reject(error)
       }
     } else {
-      reject(new Error('not on the main thread'))
+      reject(new Error('not on main thread'))
     }
 
   })
+
+  return output
 }
 
 module.exports = imageProcessor
